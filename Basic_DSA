@@ -1,0 +1,150 @@
+Implementation of Stack 
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+class stack{
+ public:
+ int *arr;
+ int top;
+ int size;
+ 
+ stack(int size){
+     this->size=size;
+     arr=new int[size];
+     top=-1;
+ }
+ 
+ void push(int data){
+     if(top<=size){
+         arr[++top]=data;
+     }else{
+         cout<<"Stack Is OverFlow "<<endl;
+     }
+ }
+ void pop(){
+     if(top!=-1){
+         top--;
+     }else{
+         cout<<"Stack is Underflow "<<endl;
+     }
+ }
+ 
+ void peek(){
+     if(top!=-1){
+         cout<<"Top Element : "<<arr[top]<<endl;
+     }else{
+         cout<<"Stack is Empty There are no any top"<<endl;
+     }
+ }
+ 
+ void isEmpty(){
+     if(top<0){
+         cout<<"Stack is Empty "<<endl;
+     }else{
+        cout<<"Stack is Not Empty "<<endl; 
+     }
+ }
+ void print(){
+    while(top!=-1){
+         cout<<arr[top]<<" ";
+        pop();
+     }
+ }
+ 
+};
+int main() {
+  stack s(2);
+  s.push(10);
+   s.push(11);
+   s.peek();
+   s.isEmpty();
+   s.push(2);
+   s.push(12);
+   s.pop();
+    s.pop();
+     s.pop();
+      s.pop();
+   s.peek();
+    s.isEmpty();
+  s.print();
+  
+
+}
+
+or
+using linked list 
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+class stack{
+ public:
+ stack *next;
+ int data;
+ 
+ stack(int data){
+     this->data=data;
+     this->next=NULL;
+ }
+ 
+ void push(int data,stack* &head){
+     stack *temp=head;
+     if(temp!=NULL){
+          stack *newnode=new stack(data);
+        newnode->next=head;
+        head=newnode;
+        
+     } else {
+            cout << "Stack Is OverFlow" << endl;
+        }
+ }
+ void print(stack* &head){
+     stack *temp=head;
+    while(temp!=NULL){
+        cout<<temp->data<<" ";
+        temp=temp->next;
+     }
+ }
+ 
+ void pop(stack* &head){
+     if(head!=NULL){
+        stack* temp = head;
+        head = head->next;
+        delete temp;
+     }else{
+        cout<<"Stack is Underflow "<<endl;
+     }
+ }
+ void isEmpty(stack* &head){
+     if(head==NULL){
+         cout<<"Stack is Empty"<<endl;
+     }else{
+         cout<<"Stack is Not Empty"<<endl;
+     }
+ }
+ 
+ void peek(stack* &head){
+     if(head!=NULL){
+         cout<<"Top Element :"<<head->data<<endl;
+     }
+     else{
+         cout<<"Stack is Empty "<<endl;
+     }
+ }
+
+ 
+};
+int main() {
+    stack *node=new stack(10);
+    stack *head=node;
+    node->push(11,head);
+    node->peek(head);
+    node->push(12,head);
+    node->peek(head);
+    node->pop(head);
+    node->isEmpty(head);
+    node->print(head);
+  
+   delete head;
+   return 0;
+
+}

@@ -148,3 +148,162 @@ int main() {
    return 0;
 
 }
+
+implement Queue using array
+#include <bits/stdc++.h> 
+class CircularQueue{
+    int *arr;
+    int rear;
+    int front;
+    int size;
+    public:
+    // Initialize your data structure.
+    CircularQueue(int n){
+        // Write your code here.
+        this->size=n;
+        arr=new int[n];
+        front=-1;
+        rear=-1;
+    }
+
+    // Enqueues 'X' into the queue. Returns true if it gets pushed into the stack, and false otherwise.
+    bool enqueue(int value){
+        // Write your code here.
+        if((front==0 && rear==size-1) ||(front!=0 && rear==(front-1)%(size-1))){
+            return false;
+        }
+            if(rear==-1){
+                front=rear=0;
+            }
+            else if(front!=0 && rear==size-1){
+                rear=0;
+            }
+            else{
+                rear++;
+            }
+            arr[rear]=value;
+            return true;
+
+    }
+
+    // Dequeues top element from queue. Returns -1 if the stack is empty, otherwise returns the popped element.
+    int dequeue(){
+        // Write your code here.
+        if(front==-1){
+            return -1;
+        }
+        
+            int val=arr[front];
+            arr[front]=-1;
+            
+            if(front==size-1){
+                front=0;
+            }
+           else if(front==rear){
+                front=rear=-1;;
+            }
+            else{
+                front++;
+            }
+            return val;
+       
+    }
+};
+or using linkedlist
+/*
+    Time complexity: O(q)
+    Space complexity: O(q)
+
+    Where q is the number of queries.
+*/
+
+class Node {
+public :
+    int data;
+    Node *next;
+
+    Node(int data) {
+        this->data = data;
+        next = NULL;
+    }
+};
+
+class Queue {
+public:
+
+    Node *head;
+    Node *tail;
+
+    Queue() {
+        head = NULL;
+        tail = NULL;
+    }
+
+    ~Queue() {
+        Node *temp = head;
+        while (temp)
+        {
+            Node *t = temp;
+            temp = temp->next;
+            delete t;
+        }
+    }
+
+    // Function to check if the queue is empty.
+    bool isEmpty() {
+        if(head==NULL && tail==NULL)
+         return true;
+        else
+        return false;
+    }
+
+    void enqueue(int data) {
+        // Create a new node.
+        Node *newNode = new Node(data);
+
+        // Check if the Queue is empty.
+        if (head == NULL) {
+            head = newNode;
+            tail = newNode;
+            return;
+        }
+
+        // Push the element to the last of the queue.
+        tail->next = newNode;
+        tail = newNode;
+        return;
+    }
+
+    int dequeue() {
+
+        // Check if the queue is empty.
+        if (isEmpty()) {
+            return -1;
+        }
+
+        int ans = head->data;
+
+
+        Node *tmp = head;
+        head = head->next;
+
+        // If the queue is empty make the tail pointer NULL.
+        if (head == NULL) {
+            tail = NULL;
+        }
+        delete tmp;
+
+        return ans;
+    }
+
+    int front() {
+
+        // Check if the queue is empty.
+        if (isEmpty())  {
+            return -1;
+        }
+
+        // Return the element at the front.
+        return head->data;
+    }
+};
